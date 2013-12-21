@@ -10,4 +10,5 @@
 
 @interface ApiHelper : NSObject
 + (int)getPersistentSliderValue;
++ (void)setPersistentSliderValue:(int)valueInteger;
 @end

@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "ApiHelper.h"
+#import "math.h"
 
 @interface ViewController ()
 @property (nonatomic, strong) UISlider *slider;
@@ -27,7 +28,20 @@
     self.slider.maximumValue = 100.0f;
     //self.slider.value = self.slider.maximumValue / 2.0;
     self.slider.value = [ApiHelper getPersistentSliderValue];
+    
+    // setup event handler
+    [self.slider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    
     [self.view addSubview:self.slider];
+}
+
+- (void)sliderValueChanged:(UISlider *)paramSlider
+{
+    int valueInteger = (int) paramSlider.value;
+    //NSLog(@"%d", valueInteger);
+    [ApiHelper setPersistentSliderValue:valueInteger];
 }
 
 - (void)didReceiveMemoryWarning
