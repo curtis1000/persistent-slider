@@ -12,6 +12,7 @@
 
 @interface ViewController ()
 @property (nonatomic, strong) UISlider *slider;
+@property (nonatomic, strong) UILabel *sliderValueLabel;
 @end
 
 @implementation ViewController
@@ -35,6 +36,13 @@
     
     
     [self.view addSubview:self.slider];
+    
+    // lets add a label that shows the slider's value
+    self.sliderValueLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 300.0f, 23.0f)];
+    self.sliderValueLabel.center = self.view.center;
+    NSString *valueString = [NSString stringWithFormat:@"%d", (int) self.slider.value];
+    [self.sliderValueLabel setText:valueString];
+    [self.view addSubview:self.sliderValueLabel];
 }
 
 - (void)sliderValueChanged:(UISlider *)paramSlider
@@ -42,6 +50,10 @@
     int valueInteger = (int) paramSlider.value;
     //NSLog(@"%d", valueInteger);
     [ApiHelper setPersistentSliderValue:valueInteger];
+    
+    //update the label
+    NSString *valueString = [NSString stringWithFormat:@"%d", (int) paramSlider.value];
+    [self.sliderValueLabel setText:valueString];
 }
 
 - (void)didReceiveMemoryWarning
