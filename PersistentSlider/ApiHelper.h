@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface ApiHelper : NSObject
++ (NSString *)getApiUrl;
 + (int)getPersistentSliderValue;
 + (void)setPersistentSliderValue:(int)valueInteger;
 @end

@@ -5,17 +5,25 @@
 //  Created by Curtis Branum on 12/19/13.
 //  Copyright (c) 2013 Curtis Branum. All rights reserved.
 //
+// you can test posting like this:
+// curl --verbose -d value=54 http://curtisbranum.com/persistent-slider/api.php
 
 #import "ApiHelper.h"
 
 @implementation ApiHelper
+
++ (NSString *)getApiUrl
+{
+    NSString *apiUrl = @"http://curtisbranum.com/persistent-slider/api.php";
+    return apiUrl;
+}
+
 + (int)getPersistentSliderValue
 {
-    // you can test posting like this:
-    // curl --verbose -d value=54 http://curtisbranum.com/persistent-slider/api.php
+    // NSLog(@"%@", [self getApiUrl]);
     
     // Send a synchronous request
-    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.curtisbranum.com/persistent-slider/api.php"]];
+    NSURLRequest * urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[self getApiUrl]]];
     NSURLResponse * response = nil;
     NSError * error = nil;
     NSData * data = [NSURLConnection sendSynchronousRequest:urlRequest
@@ -28,6 +36,7 @@
     return valueInt;
 }
 
+//+ (void)setPersistentSliderValue:(int)valueInteger
 + (void)setPersistentSliderValue:(int)valueInteger
 {
     // gleaned from: http://stackoverflow.com/questions/15749486/sending-http-post-ios
@@ -42,7 +51,7 @@
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://curtisbranum.com/persistent-slider/api.php"]]];
+    [request setURL:[NSURL URLWithString:[self getApiUrl]]];
     
     [request setHTTPMethod:@"POST"];
     
@@ -60,6 +69,8 @@
         //NSLog(@"Connection could not be made");
     }
 }
+
+
 @end
 
 
